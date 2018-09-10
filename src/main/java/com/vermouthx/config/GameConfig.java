@@ -70,6 +70,11 @@ public class GameConfig {
      */
     private static int PLAYER_BULLET_SPEED = 5;
 
+    /*/*
+    player bullet sound
+     */
+    private static String PLAYER_BULLET_SOUND = "sound/hudun.wav";
+
     static {
         // fill difficulty map
         DIFFICULT_MAP.put(0, "EASY");
@@ -203,5 +208,9 @@ public class GameConfig {
 
     public static int getPlayerBulletSpeed() {
         return PLAYER_BULLET_SPEED;
+    }
+
+    public static String getPlayerBulletSound() {
+        return PLAYER_BULLET_SOUND;
     }
 }

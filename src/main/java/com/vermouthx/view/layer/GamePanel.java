@@ -100,8 +100,10 @@ public class GamePanel extends BasePanel {
         // draw player plane
         gameController.getDto().getPlayerPlane().draw(g);
         // draw player bullets
-        for (BaseBullet baseBullet : gameController.getDto().getPlayerBullets())
-            baseBullet.draw(g);
+        synchronized (gameController.getDto().getPlayerBullets()) {
+            for (BaseBullet baseBullet : gameController.getDto().getPlayerBullets())
+                baseBullet.draw(g);
+        }
         requestFocus();
     }
 }

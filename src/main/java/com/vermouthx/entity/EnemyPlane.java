@@ -1,5 +1,7 @@
 package com.vermouthx.entity;
 
+import com.vermouthx.controller.GameController;
+
 import java.awt.*;
 
 public class EnemyPlane extends BasePlane {
@@ -14,7 +16,7 @@ public class EnemyPlane extends BasePlane {
     }
 
     @Override
-    public void shot() {
+    public void shot(GameController gameController) {
 
     }
 

@@ -1,7 +1,9 @@
 package com.vermouthx.entity;
 
+import com.vermouthx.controller.GameController;
+
 public abstract class BasePlane extends GameObject {
 
-    public abstract void shot();
+    public abstract void shot(GameController gameController);
 
 }

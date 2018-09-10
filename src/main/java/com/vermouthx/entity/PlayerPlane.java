@@ -1,13 +1,13 @@
 package com.vermouthx.entity;
 
 import com.vermouthx.config.GameConfig;
+import com.vermouthx.controller.GameController;
 import com.vermouthx.dto.GameDTO;
 import com.vermouthx.util.ResourceUtil;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.io.IOException;
-import java.util.List;
 
 public class PlayerPlane extends BasePlane {
 
@@ -127,9 +127,10 @@ public class PlayerPlane extends BasePlane {
     }
 
     @Override
-    public void shot() {
+    public void shot(GameController gameController) {
         BaseBullet bullet = new PlayerBullet(getX() + (getWidth() >> 1), getY());
         GameDTO.getDto().addPlayerBullet(bullet);
-        bullet.startThread();
+        bullet.startThread(gameController);
+        bullet.getAudioClip().play();
     }
 }

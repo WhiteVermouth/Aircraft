@@ -3,7 +3,6 @@ package com.vermouthx.dto;
 import com.vermouthx.entity.BaseBullet;
 import com.vermouthx.entity.PlayerPlane;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
