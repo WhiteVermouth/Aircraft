@@ -1,7 +1,7 @@
 package com.vermouthx.controller;
 
-import com.vermouthx.entity.BaseBullet;
 import com.vermouthx.entity.Direction;
+import com.vermouthx.entity.PlayerBullet;
 import com.vermouthx.entity.PlayerPlane;
 
 import java.awt.event.KeyAdapter;
@@ -52,7 +52,7 @@ public class PlayerController extends KeyAdapter {
             if (pressedKeys.contains('d')) playerPlane.move(Direction.DOWN);
             if (pressedKeys.contains('s')) playerPlane.move(Direction.LEFT);
             if (pressedKeys.contains('f')) playerPlane.move(Direction.RIGHT);
-            if (pressedKeys.contains('j')) playerPlane.shot(gameController);
+            if (pressedKeys.contains('j')) playerPlane.shoot(gameController);
             gameController.repaintGamePanel();
         }
     }

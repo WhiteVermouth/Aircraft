@@ -127,10 +127,11 @@ public class PlayerPlane extends BasePlane {
     }
 
     @Override
-    public void shot(GameController gameController) {
+    public void shoot(GameController gameController) {
         BaseBullet bullet = new PlayerBullet(getX() + (getWidth() >> 1), getY());
         GameDTO.getDto().addPlayerBullet(bullet);
         bullet.startThread(gameController);
-        bullet.getAudioClip().play();
+        PlayerBullet.getAudioClip().play();
     }
+
 }

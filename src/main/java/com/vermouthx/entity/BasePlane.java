@@ -4,6 +4,6 @@ import com.vermouthx.controller.GameController;
 
 public abstract class BasePlane extends GameObject {
 
-    public abstract void shot(GameController gameController);
+    public abstract void shoot(GameController gameController);
 
 }

@@ -3,6 +3,7 @@ package com.vermouthx.view.layer;
 import com.vermouthx.config.GameConfig;
 import com.vermouthx.controller.GameController;
 import com.vermouthx.entity.BaseBullet;
+import com.vermouthx.entity.BasePlane;
 import com.vermouthx.util.ResourceUtil;
 
 import javax.imageio.ImageIO;
@@ -99,6 +100,12 @@ public class GamePanel extends BasePanel {
         drawMap(g);
         // draw player plane
         gameController.getDto().getPlayerPlane().draw(g);
+        // draw enemy planes
+        synchronized (gameController.getDto().getEnemyPlanes()) {
+            for (BasePlane plane : gameController.getDto().getEnemyPlanes()) {
+                plane.draw(g);
+            }
+        }
         // draw player bullets
         synchronized (gameController.getDto().getPlayerBullets()) {
             for (BaseBullet baseBullet : gameController.getDto().getPlayerBullets())

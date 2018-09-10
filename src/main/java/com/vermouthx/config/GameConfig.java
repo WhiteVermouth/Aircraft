@@ -73,7 +73,7 @@ public class GameConfig {
     /*/*
     player bullet sound
      */
-    private static String PLAYER_BULLET_SOUND = "sound/hudun.wav";
+    private static String PLAYER_BULLET_SOUND = "sound/bullet.wav";
 
     static {
         // fill difficulty map
