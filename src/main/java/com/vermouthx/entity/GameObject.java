@@ -1,6 +1,7 @@
 package com.vermouthx.entity;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
 
 public abstract class GameObject {
     /**
@@ -25,7 +26,7 @@ public abstract class GameObject {
     /**
      * image
      */
-    private Image image;
+    private BufferedImage image;
 
     public GameObject() {
     }
@@ -69,11 +70,11 @@ public abstract class GameObject {
         this.height = height;
     }
 
-    public Image getImage() {
+    public BufferedImage getImage() {
         return image;
     }
 
-    public void setImage(Image image) {
+    public void setImage(BufferedImage image) {
         this.image = image;
     }
 

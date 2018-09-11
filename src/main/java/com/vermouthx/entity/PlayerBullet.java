@@ -5,31 +5,18 @@ import com.vermouthx.controller.GameController;
 import com.vermouthx.dto.GameDTO;
 import com.vermouthx.util.ResourceUtil;
 
-import javax.imageio.ImageIO;
 import java.applet.Applet;
 import java.applet.AudioClip;
 import java.awt.*;
-import java.io.IOException;
 
 public class PlayerBullet extends BaseBullet {
 
     private static AudioClip audioClip;
 
     public PlayerBullet(int x, int y) {
-        Image image;
-        try {
-            image = ImageIO.read(ResourceUtil.getResource(GameConfig.getPlaneBulletPath()));
-            if (audioClip == null)
-                audioClip = Applet.newAudioClip(ResourceUtil.getResource(GameConfig.getPlayerBulletSound()));
-            setImage(image);
-            setWidth(image.getWidth(null));
-            setHeight(image.getHeight(null));
-            setX(x - (getWidth() >> 1));
-            setY(y - getHeight());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
+        super(x, y, ResourceUtil.getResource(GameConfig.getPlaneBulletPath()));
+        if (audioClip == null)
+            audioClip = Applet.newAudioClip(ResourceUtil.getResource(GameConfig.getPlayerBulletSound()));
     }
 
     @Override
@@ -47,7 +34,7 @@ public class PlayerBullet extends BaseBullet {
     @Override
     public void startThread(GameController gameController) {
         setThread(new Thread(() -> {
-            while (getY() - GameConfig.getPlayerBulletSpeed() >= -getHeight()) {
+            while (getY() >= -getHeight()) {
                 try {
                     move(Direction.UP);
                     gameController.repaintGamePanel();

@@ -8,15 +8,17 @@ import com.vermouthx.util.ResourceUtil;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 public class EnemyPlane extends BasePlane {
 
-    private Thread thread;
+    private Thread moveThread;
+    private Thread shootThread;
 
     public EnemyPlane() {
         try {
-            Image image = ImageIO.read(ResourceUtil.getResource("plane/a4-" + RandomUtil.randomInt(1, 6) + ".png"));
+            BufferedImage image = ImageIO.read(ResourceUtil.getResource("plane/a4-" + RandomUtil.randomInt(1, 6) + ".png"));
             setImage(image);
             setWidth(image.getWidth(null));
             setHeight(image.getHeight(null));
@@ -41,23 +43,36 @@ public class EnemyPlane extends BasePlane {
 
     @Override
     public void shoot(GameController gameController) {
-
+        BaseBullet bullet = new EnemyBullet(getX() + (getWidth() >> 1), getY() + getHeight());
+        GameDTO.getDto().addEnemyBullet(bullet);
+        bullet.startThread(gameController);
     }
 
     public void startThread(GameController gameController) {
-        thread = new Thread(() -> {
+        moveThread = new Thread(() -> {
             while (getY() < GameConfig.getWindowHeight()) {
                 try {
                     move(Direction.DOWN);
                     gameController.repaintGamePanel();
-                    Thread.sleep(50);
+                    Thread.sleep(100);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
             }
             GameDTO.getDto().removeEnemyPlane(this);
         });
-        thread.start();
+        shootThread = new Thread(() -> {
+            while (true) {
+                try {
+                    shoot(gameController);
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        moveThread.start();
+        shootThread.start();
     }
 
 

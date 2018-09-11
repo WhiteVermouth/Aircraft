@@ -7,6 +7,7 @@ import com.vermouthx.util.ResourceUtil;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 public class PlayerPlane extends BasePlane {
@@ -17,7 +18,7 @@ public class PlayerPlane extends BasePlane {
     public PlayerPlane() {
         direction = Direction.STILL;
         speed = GameConfig.getPlayerPlaneSpeed();
-        Image image;
+        BufferedImage image;
         try {
             image = ImageIO.read(ResourceUtil.getResource(GameConfig.getPlayerImgPath()));
             setImage(image);

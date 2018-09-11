@@ -50,7 +50,18 @@ public class GameDTO {
         synchronized (enemyPlanes) {
             enemyPlanes.remove(plane);
         }
-        System.out.println(enemyPlanes.size());
+    }
+
+    public void addEnemyBullet(BaseBullet bullet) {
+        synchronized (enemyBullets) {
+            enemyBullets.add(bullet);
+        }
+    }
+
+    public void removeEnemyBullet(BaseBullet bullet) {
+        synchronized (enemyBullets) {
+            enemyBullets.remove(bullet);
+        }
     }
 
     public boolean isStart() {

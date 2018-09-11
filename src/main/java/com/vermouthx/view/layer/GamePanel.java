@@ -2,6 +2,7 @@ package com.vermouthx.view.layer;
 
 import com.vermouthx.config.GameConfig;
 import com.vermouthx.controller.GameController;
+import com.vermouthx.dto.GameDTO;
 import com.vermouthx.entity.BaseBullet;
 import com.vermouthx.entity.BasePlane;
 import com.vermouthx.util.ResourceUtil;
@@ -10,15 +11,15 @@ import javax.imageio.ImageIO;
 import java.applet.Applet;
 import java.applet.AudioClip;
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.util.List;
 
 public class GamePanel extends BasePanel {
 
     /**
      * map image
      */
-    private Image mapImg;
+    private BufferedImage mapImg;
 
     /**
      * map thread
@@ -99,16 +100,21 @@ public class GamePanel extends BasePanel {
         // draw map
         drawMap(g);
         // draw player plane
-        gameController.getDto().getPlayerPlane().draw(g);
+        GameDTO.getDto().getPlayerPlane().draw(g);
+        // draw player bullets
+        synchronized (GameDTO.getDto().getPlayerBullets()) {
+            for (BaseBullet baseBullet : GameDTO.getDto().getPlayerBullets())
+                baseBullet.draw(g);
+        }
         // draw enemy planes
-        synchronized (gameController.getDto().getEnemyPlanes()) {
-            for (BasePlane plane : gameController.getDto().getEnemyPlanes()) {
+        synchronized (GameDTO.getDto().getEnemyPlanes()) {
+            for (BasePlane plane : GameDTO.getDto().getEnemyPlanes()) {
                 plane.draw(g);
             }
         }
-        // draw player bullets
-        synchronized (gameController.getDto().getPlayerBullets()) {
-            for (BaseBullet baseBullet : gameController.getDto().getPlayerBullets())
+        // draw enemy bullets
+        synchronized (GameDTO.getDto().getEnemyBullets()) {
+            for (BaseBullet baseBullet : GameDTO.getDto().getEnemyBullets())
                 baseBullet.draw(g);
         }
         requestFocus();

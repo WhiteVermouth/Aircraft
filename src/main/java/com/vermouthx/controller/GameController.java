@@ -35,6 +35,7 @@ public class GameController {
         dto.setStart(true);
         gamePanel = new GamePanel(this);
         gamePanel.addKeyListener(playerController);
+        // listen on player operation
         new Thread(() -> {
             while (dto.isStart()) {
                 try {
@@ -45,6 +46,8 @@ public class GameController {
                 }
             }
         }).start();
+        // generate enemy plane randomly
+        // TODO according to the difficulty
         new Thread(() -> {
             while (dto.isStart()) {
                 try {
@@ -59,10 +62,6 @@ public class GameController {
         }).start();
         FrameUtil.setContentPanel(gameFrame, gamePanel);
         gameFrame.repaint();
-    }
-
-    public GameDTO getDto() {
-        return dto;
     }
 
     public void repaintGamePanel() {

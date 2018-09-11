@@ -70,8 +70,8 @@ public class GameConfig {
      */
     private static int PLAYER_BULLET_SPEED = 5;
 
-    /*/*
-    player bullet sound
+    /**
+     * player bullet sound
      */
     private static String PLAYER_BULLET_SOUND = "sound/bullet.wav";
 
@@ -79,6 +79,16 @@ public class GameConfig {
      * enemy plane speed
      */
     private static int ENEMY_PLANE_SPEED = 5;
+
+    /**
+     * image for enemy bullet
+     */
+    private static String ENEMY_BULLET_PATH = "bullet/jizhong1.png";
+
+    /**
+     * enemy bullet speed
+     */
+    private static int ENEMY_BULLET_SPEED = 10;
 
     static {
         // fill difficulty map
@@ -221,5 +231,13 @@ public class GameConfig {
 
     public static int getEnemyPlaneSpeed() {
         return ENEMY_PLANE_SPEED;
+    }
+
+    public static String getEnemyBulletPath() {
+        return ENEMY_BULLET_PATH;
+    }
+
+    public static int getEnemyBulletSpeed() {
+        return ENEMY_BULLET_SPEED;
     }
 }

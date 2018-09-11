@@ -2,6 +2,7 @@ package com.vermouthx.view.layer;
 
 import com.vermouthx.config.GameConfig;
 import com.vermouthx.controller.GameController;
+import com.vermouthx.dto.GameDTO;
 import com.vermouthx.util.ResourceUtil;
 
 import javax.imageio.ImageIO;
@@ -67,7 +68,7 @@ public class LaunchPanel extends BasePanel {
         setLayout(null);
         String bgPath = "menu/bg_menu.jpg";
         String planeMenuPath = "menu/plane_menu.png";
-        String btnContinueIconPath = "menu/letter_cover.png";
+        String btnContinueIconPath = "menu/start_menu.png";
         try {
             background = ImageIO.read(ResourceUtil.getResource(bgPath));
             planeMenu = ImageIO.read(ResourceUtil.getResource(planeMenuPath));
@@ -91,7 +92,7 @@ public class LaunchPanel extends BasePanel {
      */
     private void initBtnContinue() {
         btnContinue = new JLabel(btnContinueIcon);
-        btnContinue.setBounds((GameConfig.getWindowWidth() - btnContinueIcon.getIconWidth()) >> 1, GameConfig.getWindowHeight() / 3 * 2, btnContinueIcon.getIconWidth(), btnContinueIcon.getIconHeight());
+        btnContinue.setBounds((GameConfig.getWindowWidth() - btnContinueIcon.getIconWidth()) >> 1, GameConfig.getWindowHeight() / 5 * 3, btnContinueIcon.getIconWidth(), btnContinueIcon.getIconHeight());
         addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -117,7 +118,7 @@ public class LaunchPanel extends BasePanel {
 
                 @Override
                 public void mouseClicked(MouseEvent e) {
-                    gameController.getDto().setDifficulty(GameConfig.getDifficultMap().get(difficulty));
+                    GameDTO.getDto().setDifficulty(GameConfig.getDifficultMap().get(difficulty));
                     btnAudioClip.play();
                     bgAudioClip.stop();
                     gameController.startGame();
