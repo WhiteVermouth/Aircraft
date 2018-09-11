@@ -1,9 +1,9 @@
 package com.vermouthx.controller;
 
 import com.vermouthx.dto.GameDTO;
-import com.vermouthx.entity.BaseBullet;
-import com.vermouthx.entity.BasePlane;
-import com.vermouthx.entity.EnemyPlane;
+import com.vermouthx.entity.plane.BaseBullet;
+import com.vermouthx.entity.bullet.BasePlane;
+import com.vermouthx.entity.bullet.EnemyPlane;
 import com.vermouthx.util.FrameUtil;
 import com.vermouthx.view.GameFrame;
 import com.vermouthx.view.layer.GamePanel;
@@ -38,17 +38,19 @@ public class GameController {
         dto.setStart(true);
         gamePanel = new GamePanel(this);
         gamePanel.addKeyListener(playerController);
-        // listen on player operation
+        // listen on player operation and detect collision
         new Thread(() -> {
             while (dto.isStart()) {
                 try {
-                    Thread.sleep(100);
                     playerController.triggerPressedKey();
+                    detectCollision();
+                    Thread.sleep(100);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
             }
         }).start();
+        GameDTO.getDto().getPlayerPlane().startThread(this);
         // generate enemy plane randomly
         new Thread(() -> {
             while (dto.isStart()) {
@@ -58,17 +60,6 @@ public class GameController {
                     plane.startThread(this);
                     // TODO adjust enemy plane generating speed according to difficulty
                     Thread.sleep(2000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-        }).start();
-        // collision detection thread
-        new Thread(() -> {
-            while (dto.isStart()) {
-                try {
-                    detectCollision();
-                    Thread.sleep(100);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -88,11 +79,11 @@ public class GameController {
         List<BaseBullet> enemyBullets = dto.getEnemyBullets();
         for (BasePlane enemyPlane : enemyPlanes) {
             if (enemyPlane.getRectangle().intersects(playerPlane.getRectangle())) {
+                playerPlane.setDead(true);
                 dto.setStart(false);
             }
             for (BaseBullet playerBullet : playerBullets) {
                 if (playerBullet.getRectangle().intersects(enemyPlane.getRectangle())) {
-                    // TODO enemy plane boom
                     playerBullet.setHit(true);
                     enemyPlane.setDead(true);
                 }
@@ -101,6 +92,7 @@ public class GameController {
         for (BaseBullet enemyBullet : enemyBullets) {
             if (enemyBullet.getRectangle().intersects(playerPlane.getRectangle())) {
                 enemyBullet.setHit(true);
+                playerPlane.setDead(true);
                 dto.setStart(false);
             }
         }

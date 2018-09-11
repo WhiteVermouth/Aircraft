@@ -1,6 +1,7 @@
-package com.vermouthx.entity;
+package com.vermouthx.entity.plane;
 
 import com.vermouthx.controller.GameController;
+import com.vermouthx.entity.GameObject;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;

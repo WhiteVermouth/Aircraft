@@ -1,62 +1,52 @@
-package com.vermouthx.entity;
+package com.vermouthx.entity.plane;
 
 import com.vermouthx.config.GameConfig;
 import com.vermouthx.controller.GameController;
 import com.vermouthx.dto.GameDTO;
+import com.vermouthx.entity.Direction;
 import com.vermouthx.util.ResourceUtil;
 
 import javax.imageio.ImageIO;
-import java.applet.Applet;
-import java.applet.AudioClip;
-import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
-public class PlayerBullet extends BaseBullet {
-
-    private static AudioClip audioClip;
+public class EnemyBullet extends BaseBullet {
 
     private static BufferedImage bulletImage;
 
     static {
         try {
-            bulletImage = ImageIO.read(ResourceUtil.getResource(GameConfig.getPlayerBulletPath()));
+            bulletImage = ImageIO.read(ResourceUtil.getResource(GameConfig.getEnemyBulletPath()));
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    public PlayerBullet(int x, int y) {
+    public EnemyBullet(int x, int y) {
         super(x, y, bulletImage);
-        if (audioClip == null)
-            audioClip = Applet.newAudioClip(ResourceUtil.getResource(GameConfig.getPlayerBulletSound()));
     }
 
     @Override
     public void move(int direction) {
-        if (direction == Direction.UP) {
-            setY(getY() - GameConfig.getPlayerBulletSpeed());
+        if (direction == Direction.DOWN) {
+            setY(getY() + GameConfig.getEnemyBulletSpeed());
         }
     }
 
     @Override
     public void startThread(GameController gameController) {
         setThread(new Thread(() -> {
-            while (getY() >= -getHeight() && !isHit()) {
+            while (getY() <= GameConfig.getWindowHeight() - (getHeight()) && !isHit()) {
                 try {
-                    move(Direction.UP);
+                    move(Direction.DOWN);
                     gameController.repaintGamePanel();
-                    Thread.sleep(5);
+                    Thread.sleep(50);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
             }
-            GameDTO.getDto().removePlayerBullet(this);
+            GameDTO.getDto().removeEnemyBullet(this);
         }));
         getThread().start();
-    }
-
-    public static AudioClip getAudioClip() {
-        return audioClip;
     }
 }

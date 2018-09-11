@@ -1,8 +1,11 @@
-package com.vermouthx.entity;
+package com.vermouthx.entity.bullet;
 
 import com.vermouthx.config.GameConfig;
 import com.vermouthx.controller.GameController;
 import com.vermouthx.dto.GameDTO;
+import com.vermouthx.entity.plane.BaseBullet;
+import com.vermouthx.entity.Direction;
+import com.vermouthx.entity.plane.PlayerBullet;
 import com.vermouthx.util.ResourceUtil;
 
 import javax.imageio.ImageIO;
@@ -14,11 +17,14 @@ public class PlayerPlane extends BasePlane {
 
     private int direction;
     private int speed;
+    private boolean hasBoom;
+    private Thread thread;
 
     public PlayerPlane() {
         super();
         direction = Direction.STILL;
         speed = GameConfig.getPlayerPlaneSpeed();
+        hasBoom = false;
         BufferedImage image;
         try {
             image = ImageIO.read(ResourceUtil.getResource(GameConfig.getPlayerImgPath()));
@@ -52,30 +58,51 @@ public class PlayerPlane extends BasePlane {
         g.drawImage(image, getX(), getY(), getX() + getWidth(), getY() + getHeight(), GameConfig.getPlayerPlaneStillStartX(), 0, GameConfig.getPlayerPlaneStillEndX(), getHeight(), null);
     }
 
+    public void startThread(GameController gameController) {
+        thread = new Thread(() -> {
+            try {
+                while (!isDead()) {
+                    Thread.sleep(100);
+                }
+                playBoomAudio();
+                Thread.sleep(GameConfig.getBoomGifDuration());
+                hasBoom = true;
+                gameController.repaintGamePanel();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        });
+        thread.start();
+    }
+
     @Override
     public void draw(Graphics g) {
-        Image image = getImage();
-        switch (direction) {
-            case Direction.LEFT:
-                if (getX() != 0)
-                    drawLeft(g, image);
-                else
-                    drawLeftEdge(g, image);
-                break;
-            case Direction.RIGHT:
-                if (getX() != GameConfig.getWindowWidth() - getWidth())
-                    drawRight(g, image);
-                else
-                    drawRightEdge(g, image);
-                break;
-            default:
-                if (getX() == 0)
-                    drawLeftEdge(g, image);
-                else if (getX() == GameConfig.getWindowWidth() - getWidth())
-                    drawRightEdge(g, image);
-                else
-                    drawStill(g, image);
-                break;
+        if (isDead() && !hasBoom) {
+            boom(g);
+        } else if (!isDead()) {
+            Image image = getImage();
+            switch (direction) {
+                case Direction.LEFT:
+                    if (getX() != 0)
+                        drawLeft(g, image);
+                    else
+                        drawLeftEdge(g, image);
+                    break;
+                case Direction.RIGHT:
+                    if (getX() != GameConfig.getWindowWidth() - getWidth())
+                        drawRight(g, image);
+                    else
+                        drawRightEdge(g, image);
+                    break;
+                default:
+                    if (getX() == 0)
+                        drawLeftEdge(g, image);
+                    else if (getX() == GameConfig.getWindowWidth() - getWidth())
+                        drawRightEdge(g, image);
+                    else
+                        drawStill(g, image);
+                    break;
+            }
         }
     }
 
@@ -133,7 +160,7 @@ public class PlayerPlane extends BasePlane {
         BaseBullet bullet = new PlayerBullet(getX() + (getWidth() >> 1), getY());
         GameDTO.getDto().addPlayerBullet(bullet);
         bullet.startThread(gameController);
-        PlayerBullet.getAudioClip().play();
+//        PlayerBullet.getAudioClip().play();
     }
 
 }

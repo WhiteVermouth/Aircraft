@@ -1,7 +1,8 @@
-package com.vermouthx.entity;
+package com.vermouthx.entity.bullet;
 
 import com.vermouthx.config.GameConfig;
 import com.vermouthx.controller.GameController;
+import com.vermouthx.entity.GameObject;
 import com.vermouthx.util.ResourceUtil;
 
 import javax.swing.*;
@@ -28,9 +29,14 @@ public abstract class BasePlane extends GameObject {
 
     public abstract void shoot(GameController gameController);
 
+    public abstract void startThread(GameController gameController);
+
     public void boom(Graphics g) {
-        boomAudio.play();
         g.drawImage(boomImage, getX() + (getWidth() >> 1) - (boomImage.getWidth(null) >> 1), getY() + (getHeight() >> 1) - (boomImage.getHeight(null) >> 1), null);
+    }
+
+    public void playBoomAudio() {
+        boomAudio.play();
     }
 
     public boolean isDead() {

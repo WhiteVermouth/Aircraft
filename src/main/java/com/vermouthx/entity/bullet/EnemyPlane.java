@@ -1,8 +1,11 @@
-package com.vermouthx.entity;
+package com.vermouthx.entity.bullet;
 
 import com.vermouthx.config.GameConfig;
 import com.vermouthx.controller.GameController;
 import com.vermouthx.dto.GameDTO;
+import com.vermouthx.entity.plane.BaseBullet;
+import com.vermouthx.entity.Direction;
+import com.vermouthx.entity.plane.EnemyBullet;
 import com.vermouthx.util.RandomUtil;
 import com.vermouthx.util.ResourceUtil;
 
@@ -64,14 +67,26 @@ public class EnemyPlane extends BasePlane {
                     e.printStackTrace();
                 }
             }
-            GameDTO.getDto().removeEnemyPlane(this);
+            if (isDead()) {
+                try {
+                    playBoomAudio();
+                    Thread.sleep(GameConfig.getBoomGifDuration());
+                    GameDTO.getDto().removeEnemyPlane(this);
+                    gameController.repaintGamePanel();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            } else {
+                GameDTO.getDto().removeEnemyPlane(this);
+            }
         });
+        // enemy plane auto shooting
         shootThread = new Thread(() -> {
             while (!isDead()) {
                 try {
                     shoot(gameController);
                     // TODO adjust shoot frequency according difficulty
-                    Thread.sleep(5000);
+                    Thread.sleep(2000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }

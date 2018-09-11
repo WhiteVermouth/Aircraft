@@ -96,6 +96,11 @@ public class GameConfig {
     private static String BOOM_GIF_PATH = "boom/boom.gif";
 
     /**
+     * boom gif duration
+     */
+    private static int BOOM_GIF_DURATION = 1200;
+
+    /**
      * boom sound
      */
     private static String BOOM_AUDIO_PATH = "sound/baozha.wav";
@@ -257,5 +262,9 @@ public class GameConfig {
 
     public static String getBoomAudioPath() {
         return BOOM_AUDIO_PATH;
+    }
+
+    public static int getBoomGifDuration() {
+        return BOOM_GIF_DURATION;
     }
 }

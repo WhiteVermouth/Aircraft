@@ -1,7 +1,7 @@
 package com.vermouthx.controller;
 
+import com.vermouthx.entity.bullet.BasePlane;
 import com.vermouthx.entity.Direction;
-import com.vermouthx.entity.PlayerPlane;
 
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -10,12 +10,12 @@ import java.util.Set;
 
 public class PlayerController extends KeyAdapter {
 
-    private PlayerPlane playerPlane;
+    private BasePlane playerPlane;
     private GameController gameController;
     private Set<Character> functionKeys;
     private Set<Character> pressedKeys;
 
-    public PlayerController(PlayerPlane playerPlane, GameController gameController) {
+    public PlayerController(BasePlane playerPlane, GameController gameController) {
         this.playerPlane = playerPlane;
         this.gameController = gameController;
         functionKeys = new HashSet<>();

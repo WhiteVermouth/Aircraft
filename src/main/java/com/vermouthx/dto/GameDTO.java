@@ -1,8 +1,8 @@
 package com.vermouthx.dto;
 
-import com.vermouthx.entity.BaseBullet;
-import com.vermouthx.entity.BasePlane;
-import com.vermouthx.entity.PlayerPlane;
+import com.vermouthx.entity.plane.BaseBullet;
+import com.vermouthx.entity.bullet.BasePlane;
+import com.vermouthx.entity.bullet.PlayerPlane;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -13,7 +13,7 @@ public class GameDTO {
 
     private String difficulty;
 
-    private PlayerPlane playerPlane;
+    private BasePlane playerPlane;
 
     private final List<BaseBullet> playerBullets;
 
@@ -86,7 +86,7 @@ public class GameDTO {
         this.difficulty = difficulty;
     }
 
-    public PlayerPlane getPlayerPlane() {
+    public BasePlane getPlayerPlane() {
         return playerPlane;
     }
 
