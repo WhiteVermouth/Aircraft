@@ -52,6 +52,12 @@ public class GameDTO {
         }
     }
 
+    public void removeAllEnemyPlane() {
+        synchronized (enemyPlanes) {
+            enemyPlanes.clear();
+        }
+    }
+
     public void addEnemyBullet(BaseBullet bullet) {
         synchronized (enemyBullets) {
             enemyBullets.add(bullet);

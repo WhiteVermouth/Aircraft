@@ -17,6 +17,7 @@ public class EnemyPlane extends BasePlane {
     private Thread shootThread;
 
     public EnemyPlane() {
+        super();
         try {
             BufferedImage image = ImageIO.read(ResourceUtil.getResource("plane/a4-" + RandomUtil.randomInt(1, 6) + ".png"));
             setImage(image);
@@ -31,7 +32,10 @@ public class EnemyPlane extends BasePlane {
 
     @Override
     public void draw(Graphics g) {
-        g.drawImage(getImage(), getX(), getY(), null);
+        if (!isDead())
+            g.drawImage(getImage(), getX(), getY(), null);
+        else
+            boom(g);
     }
 
     @Override
@@ -50,10 +54,11 @@ public class EnemyPlane extends BasePlane {
 
     public void startThread(GameController gameController) {
         moveThread = new Thread(() -> {
-            while (getY() < GameConfig.getWindowHeight()) {
+            while (getY() < GameConfig.getWindowHeight() && !isDead()) {
                 try {
                     move(Direction.DOWN);
                     gameController.repaintGamePanel();
+                    // TODO adjust move speed according to difficulty
                     Thread.sleep(100);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
@@ -62,10 +67,11 @@ public class EnemyPlane extends BasePlane {
             GameDTO.getDto().removeEnemyPlane(this);
         });
         shootThread = new Thread(() -> {
-            while (true) {
+            while (!isDead()) {
                 try {
                     shoot(gameController);
-                    Thread.sleep(1000);
+                    // TODO adjust shoot frequency according difficulty
+                    Thread.sleep(5000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }

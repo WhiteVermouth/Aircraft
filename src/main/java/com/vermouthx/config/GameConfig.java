@@ -90,6 +90,16 @@ public class GameConfig {
      */
     private static int ENEMY_BULLET_SPEED = 10;
 
+    /**
+     * boom gif
+     */
+    private static String BOOM_GIF_PATH = "boom/boom.gif";
+
+    /**
+     * boom sound
+     */
+    private static String BOOM_AUDIO_PATH = "sound/baozha.wav";
+
     static {
         // fill difficulty map
         DIFFICULT_MAP.put(0, "EASY");
@@ -239,5 +249,13 @@ public class GameConfig {
 
     public static int getEnemyBulletSpeed() {
         return ENEMY_BULLET_SPEED;
+    }
+
+    public static String getBoomGifPath() {
+        return BOOM_GIF_PATH;
+    }
+
+    public static String getBoomAudioPath() {
+        return BOOM_AUDIO_PATH;
     }
 }

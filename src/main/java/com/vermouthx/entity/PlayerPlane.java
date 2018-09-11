@@ -16,6 +16,7 @@ public class PlayerPlane extends BasePlane {
     private int speed;
 
     public PlayerPlane() {
+        super();
         direction = Direction.STILL;
         speed = GameConfig.getPlayerPlaneSpeed();
         BufferedImage image;

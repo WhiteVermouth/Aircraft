@@ -93,7 +93,7 @@ public class LaunchPanel extends BasePanel {
     private void initBtnContinue() {
         btnContinue = new JLabel(btnContinueIcon);
         btnContinue.setBounds((GameConfig.getWindowWidth() - btnContinueIcon.getIconWidth()) >> 1, GameConfig.getWindowHeight() / 5 * 3, btnContinueIcon.getIconWidth(), btnContinueIcon.getIconHeight());
-        addMouseListener(new MouseAdapter() {
+        btnContinue.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 remove(btnContinue);

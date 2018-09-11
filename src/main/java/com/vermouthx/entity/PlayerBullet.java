@@ -33,11 +33,6 @@ public class PlayerBullet extends BaseBullet {
     }
 
     @Override
-    public void draw(Graphics g) {
-        g.drawImage(getImage(), getX(), getY(), null);
-    }
-
-    @Override
     public void move(int direction) {
         if (direction == Direction.UP) {
             setY(getY() - GameConfig.getPlayerBulletSpeed());
@@ -47,7 +42,7 @@ public class PlayerBullet extends BaseBullet {
     @Override
     public void startThread(GameController gameController) {
         setThread(new Thread(() -> {
-            while (getY() >= -getHeight()) {
+            while (getY() >= -getHeight() && !isHit()) {
                 try {
                     move(Direction.UP);
                     gameController.repaintGamePanel();
