@@ -8,6 +8,6 @@ public class RandomUtil {
     }
 
     public static int randomInt(int min, int max) {
-        return ThreadLocalRandom.current().nextInt(min, max);
+        return ThreadLocalRandom.current().nextInt(min, max + 1);
     }
 }

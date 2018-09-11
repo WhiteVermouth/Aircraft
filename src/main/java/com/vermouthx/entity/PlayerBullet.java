@@ -13,8 +13,6 @@ import java.io.IOException;
 
 public class PlayerBullet extends BaseBullet {
 
-    private GameController gameController;
-
     private static AudioClip audioClip;
 
     public PlayerBullet(int x, int y) {
@@ -31,18 +29,7 @@ public class PlayerBullet extends BaseBullet {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        setThread(new Thread(() -> {
-            while (getY() - GameConfig.getPlayerBulletSpeed() >= -getHeight()) {
-                try {
-                    move(Direction.UP);
-                    gameController.repaintGamePanel();
-                    Thread.sleep(5);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-            GameDTO.getDto().removePlayerBullet(this);
-        }));
+
     }
 
     @Override
@@ -59,7 +46,18 @@ public class PlayerBullet extends BaseBullet {
 
     @Override
     public void startThread(GameController gameController) {
-        this.gameController = gameController;
+        setThread(new Thread(() -> {
+            while (getY() - GameConfig.getPlayerBulletSpeed() >= -getHeight()) {
+                try {
+                    move(Direction.UP);
+                    gameController.repaintGamePanel();
+                    Thread.sleep(5);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+            GameDTO.getDto().removePlayerBullet(this);
+        }));
         getThread().start();
     }
 

@@ -1,7 +1,6 @@
 package com.vermouthx.controller;
 
 import com.vermouthx.entity.Direction;
-import com.vermouthx.entity.PlayerBullet;
 import com.vermouthx.entity.PlayerPlane;
 
 import java.awt.event.KeyAdapter;

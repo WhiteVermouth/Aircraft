@@ -111,13 +111,9 @@ public class LaunchPanel extends BasePanel {
         for (int i = 0; i < GameConfig.getDifficultyDegree(); i++) {
             btnDifficultyIcons[i] = new ImageIcon(ResourceUtil.getResource(btnDifficultyImagesBasePath + i + ".png"));
             btnDifficulty[i] = new JLabel(btnDifficultyIcons[i]);
-            btnDifficulty[i].setBounds((GameConfig.getWindowWidth() - btnDifficultyIcons[i].getIconWidth()) >> 1, GameConfig.getWindowHeight() / 5 * 3 + i * btnDifficultyIcons[i].getIconHeight() + i * 20, btnDifficultyIcons[i].getIconWidth(), btnDifficultyIcons[i].getIconHeight());
+            btnDifficulty[i].setBounds(((GameConfig.getWindowWidth() - btnDifficultyIcons[i].getIconWidth() * 3) >> 2) + i * (btnDifficultyIcons[i].getIconWidth() + ((GameConfig.getWindowWidth() - btnDifficultyIcons[i].getIconWidth() * 3) >> 2)), GameConfig.getWindowHeight() / 5 * 3, btnDifficultyIcons[i].getIconWidth(), btnDifficultyIcons[i].getIconHeight());
             final int difficulty = i;
             btnDifficulty[i].addMouseListener(new MouseAdapter() {
-                @Override
-                public void mouseEntered(MouseEvent e) {
-                    btnAudioClip.play();
-                }
 
                 @Override
                 public void mouseClicked(MouseEvent e) {

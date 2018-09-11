@@ -2,6 +2,7 @@ package com.vermouthx.entity;
 
 import com.vermouthx.config.GameConfig;
 import com.vermouthx.controller.GameController;
+import com.vermouthx.dto.GameDTO;
 import com.vermouthx.util.RandomUtil;
 import com.vermouthx.util.ResourceUtil;
 
@@ -11,6 +12,8 @@ import java.io.IOException;
 
 public class EnemyPlane extends BasePlane {
 
+    private Thread thread;
+
     public EnemyPlane() {
         try {
             Image image = ImageIO.read(ResourceUtil.getResource("plane/a4-" + RandomUtil.randomInt(1, 6) + ".png"));
@@ -18,7 +21,7 @@ public class EnemyPlane extends BasePlane {
             setWidth(image.getWidth(null));
             setHeight(image.getHeight(null));
             setX(RandomUtil.randomInt(0, GameConfig.getWindowWidth() - getWidth()));
-            setY(0);
+            setY(-getHeight());
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -31,12 +34,30 @@ public class EnemyPlane extends BasePlane {
 
     @Override
     public void move(int direction) {
-
+        if (direction == Direction.DOWN) {
+            setY(getY() + GameConfig.getEnemyPlaneSpeed());
+        }
     }
 
     @Override
     public void shoot(GameController gameController) {
 
+    }
+
+    public void startThread(GameController gameController) {
+        thread = new Thread(() -> {
+            while (getY() < GameConfig.getWindowHeight()) {
+                try {
+                    move(Direction.DOWN);
+                    gameController.repaintGamePanel();
+                    Thread.sleep(50);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+            GameDTO.getDto().removeEnemyPlane(this);
+        });
+        thread.start();
     }
 
 

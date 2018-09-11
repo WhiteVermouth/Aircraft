@@ -48,7 +48,9 @@ public class GameController {
         new Thread(() -> {
             while (dto.isStart()) {
                 try {
-                    dto.addEnemyPlane(new EnemyPlane());
+                    EnemyPlane plane = new EnemyPlane();
+                    dto.addEnemyPlane(plane);
+                    plane.startThread(this);
                     Thread.sleep(2000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();

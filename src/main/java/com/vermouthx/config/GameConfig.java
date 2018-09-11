@@ -16,7 +16,7 @@ public class GameConfig {
     /**
      * window width
      */
-    private static final int WINDOW_WIDTH = 380;
+    private static final int WINDOW_WIDTH = 520;
     /**
      * window height
      */
@@ -74,6 +74,11 @@ public class GameConfig {
     player bullet sound
      */
     private static String PLAYER_BULLET_SOUND = "sound/bullet.wav";
+
+    /**
+     * enemy plane speed
+     */
+    private static int ENEMY_PLANE_SPEED = 5;
 
     static {
         // fill difficulty map
@@ -212,5 +217,9 @@ public class GameConfig {
 
     public static String getPlayerBulletSound() {
         return PLAYER_BULLET_SOUND;
+    }
+
+    public static int getEnemyPlaneSpeed() {
+        return ENEMY_PLANE_SPEED;
     }
 }
