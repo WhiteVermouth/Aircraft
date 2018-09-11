@@ -1,8 +1,8 @@
 package com.vermouthx.dto;
 
-import com.vermouthx.entity.plane.BaseBullet;
-import com.vermouthx.entity.bullet.BasePlane;
-import com.vermouthx.entity.bullet.PlayerPlane;
+import com.vermouthx.entity.bullet.BaseBullet;
+import com.vermouthx.entity.plane.BasePlane;
+import com.vermouthx.entity.plane.PlayerPlane;
 
 import java.util.LinkedList;
 import java.util.List;

@@ -1,9 +1,9 @@
 package com.vermouthx.controller;
 
 import com.vermouthx.dto.GameDTO;
-import com.vermouthx.entity.plane.BaseBullet;
-import com.vermouthx.entity.bullet.BasePlane;
-import com.vermouthx.entity.bullet.EnemyPlane;
+import com.vermouthx.entity.bullet.BaseBullet;
+import com.vermouthx.entity.plane.BasePlane;
+import com.vermouthx.entity.plane.EnemyPlane;
 import com.vermouthx.util.FrameUtil;
 import com.vermouthx.view.GameFrame;
 import com.vermouthx.view.layer.GamePanel;

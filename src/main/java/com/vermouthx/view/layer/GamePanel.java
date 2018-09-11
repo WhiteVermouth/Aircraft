@@ -3,8 +3,8 @@ package com.vermouthx.view.layer;
 import com.vermouthx.config.GameConfig;
 import com.vermouthx.controller.GameController;
 import com.vermouthx.dto.GameDTO;
-import com.vermouthx.entity.plane.BaseBullet;
-import com.vermouthx.entity.bullet.BasePlane;
+import com.vermouthx.entity.bullet.BaseBullet;
+import com.vermouthx.entity.plane.BasePlane;
 import com.vermouthx.util.ResourceUtil;
 
 import javax.imageio.ImageIO;

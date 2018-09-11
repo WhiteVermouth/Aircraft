@@ -1,4 +1,4 @@
-package com.vermouthx.entity.bullet;
+package com.vermouthx.entity.plane;
 
 import com.vermouthx.config.GameConfig;
 import com.vermouthx.controller.GameController;

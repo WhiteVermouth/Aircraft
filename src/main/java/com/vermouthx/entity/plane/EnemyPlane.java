@@ -1,11 +1,11 @@
-package com.vermouthx.entity.bullet;
+package com.vermouthx.entity.plane;
 
 import com.vermouthx.config.GameConfig;
 import com.vermouthx.controller.GameController;
 import com.vermouthx.dto.GameDTO;
-import com.vermouthx.entity.plane.BaseBullet;
 import com.vermouthx.entity.Direction;
-import com.vermouthx.entity.plane.EnemyBullet;
+import com.vermouthx.entity.bullet.BaseBullet;
+import com.vermouthx.entity.bullet.EnemyBullet;
 import com.vermouthx.util.RandomUtil;
 import com.vermouthx.util.ResourceUtil;
 
