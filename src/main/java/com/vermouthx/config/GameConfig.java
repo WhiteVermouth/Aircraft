@@ -58,7 +58,7 @@ public class GameConfig {
     /**
      * image for player bullet
      */
-    private static String PLANE_BULLET_PATH = "bullet/p-f01.png";
+    private static String PLAYER_BULLET_PATH = "bullet/p-f01.png";
 
     /**
      * player plane speed
@@ -217,8 +217,8 @@ public class GameConfig {
         return PLAYER_PLANE_SPEED;
     }
 
-    public static String getPlaneBulletPath() {
-        return PLANE_BULLET_PATH;
+    public static String getPlayerBulletPath() {
+        return PLAYER_BULLET_PATH;
     }
 
     public static int getPlayerBulletSpeed() {
