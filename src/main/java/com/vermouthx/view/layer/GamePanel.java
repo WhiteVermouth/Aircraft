@@ -6,6 +6,7 @@ import com.vermouthx.dto.GameDTO;
 import com.vermouthx.entity.bullet.BaseBullet;
 import com.vermouthx.entity.item.BaseItem;
 import com.vermouthx.entity.plane.BasePlane;
+import com.vermouthx.util.LayerUtil;
 import com.vermouthx.util.ResourceUtil;
 
 import javax.imageio.ImageIO;
@@ -21,6 +22,12 @@ public class GamePanel extends BasePanel {
      * map image
      */
     private BufferedImage mapImg;
+
+    /**
+     * score ui image
+     */
+    private BufferedImage scoreUIImg;
+    private int scorePadding;
 
     /**
      * map thread
@@ -44,6 +51,7 @@ public class GamePanel extends BasePanel {
 
     public GamePanel(GameController gameController) {
         super(gameController);
+        scorePadding = 10;
         initImage();
         initMusic();
         initMapThread();
@@ -54,8 +62,10 @@ public class GamePanel extends BasePanel {
      */
     private void initImage() {
         String mapPath = "maps/xingyun1.jpg";
+        String scoreUIPath = "score/uiScore.png";
         try {
             mapImg = ImageIO.read(ResourceUtil.getResource(mapPath));
+            scoreUIImg = ImageIO.read(ResourceUtil.getResource(scoreUIPath));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -123,6 +133,9 @@ public class GamePanel extends BasePanel {
             for (BaseItem item : GameDTO.getDto().getItems())
                 item.draw(g);
         }
+        // draw score
+        g.drawImage(scoreUIImg, scorePadding, scorePadding, null);
+        LayerUtil.drawNumber(g, (scorePadding << 1) + scoreUIImg.getWidth(), scorePadding, GameDTO.getDto().getScore());
         requestFocus();
     }
 }

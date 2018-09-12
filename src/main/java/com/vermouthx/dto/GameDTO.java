@@ -13,6 +13,8 @@ public class GameDTO {
 
     private boolean isStart;
 
+    private int score;
+
     private Difficulty difficulty;
 
     private BasePlane playerPlane;
@@ -37,11 +39,21 @@ public class GameDTO {
     }
 
     public GameDTO() {
+        isStart = false;
+        score = 0;
         playerPlane = new PlayerPlane();
         playerBullets = new LinkedList<>();
         enemyPlanes = new LinkedList<>();
         enemyBullets = new LinkedList<>();
         items = new LinkedList<>();
+    }
+
+    public void addScore(int score) {
+        this.score += score;
+    }
+
+    public int getScore() {
+        return score;
     }
 
     public void addPlayerBullet(BaseBullet bullet) {

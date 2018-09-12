@@ -69,6 +69,7 @@ public class EnemyPlane extends BasePlane {
             if (isDead()) {
                 try {
                     playBoomAudio();
+                    GameDTO.getDto().addScore(GameDTO.getDto().getDifficulty().getScorePerEnemy());
                     Thread.sleep(GameConfig.getBoomGifDuration());
                     GameDTO.getDto().removeEnemyPlane(this);
                     gameController.repaintGamePanel();

@@ -5,7 +5,6 @@ import com.vermouthx.dto.GameDTO;
 import com.vermouthx.entity.plane.BasePlane;
 
 import java.awt.image.BufferedImage;
-import java.util.List;
 
 public class PlayerBaseBullet extends BaseBullet {
 
