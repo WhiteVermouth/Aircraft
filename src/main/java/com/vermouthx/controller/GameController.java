@@ -43,7 +43,6 @@ public class GameController {
             while (dto.isStart()) {
                 try {
                     playerController.triggerPressedKey();
-//                    detectCollision();
                     Thread.sleep(100);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
@@ -53,7 +52,7 @@ public class GameController {
         dto.getPlayerPlane().startThread(this);
         // generate enemy plane randomly
         new Thread(() -> {
-            while (dto.isStart()) {
+            while (dto.isStart() && !dto.isBoss()) {
                 try {
                     BasePlane plane = new EnemyPlane();
                     dto.addEnemyPlane(plane);

@@ -4,6 +4,7 @@ import com.vermouthx.config.Difficulty;
 import com.vermouthx.entity.bullet.BaseBullet;
 import com.vermouthx.entity.item.BaseItem;
 import com.vermouthx.entity.plane.BasePlane;
+import com.vermouthx.entity.plane.BossPlane;
 import com.vermouthx.entity.plane.PlayerPlane;
 
 import java.util.LinkedList;
@@ -13,11 +14,15 @@ public class GameDTO {
 
     private boolean isStart;
 
+    private boolean isBoss;
+
     private int score;
 
     private Difficulty difficulty;
 
     private BasePlane playerPlane;
+
+    private BossPlane bossPlane;
 
     private final List<BaseBullet> playerBullets;
 
@@ -40,6 +45,7 @@ public class GameDTO {
 
     public GameDTO() {
         isStart = false;
+        isBoss = false;
         score = 0;
         playerPlane = new PlayerPlane();
         playerBullets = new LinkedList<>();
@@ -54,6 +60,21 @@ public class GameDTO {
 
     public int getScore() {
         return score;
+    }
+
+    public void initBossPlane() {
+        isBoss = true;
+        bossPlane = new BossPlane();
+    }
+
+    public boolean isBoss() {
+        return isBoss;
+    }
+
+    public BossPlane getBossPlane() {
+        if (bossPlane == null)
+            initBossPlane();
+        return bossPlane;
     }
 
     public void addPlayerBullet(BaseBullet bullet) {

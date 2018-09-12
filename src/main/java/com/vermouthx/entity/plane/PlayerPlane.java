@@ -160,10 +160,11 @@ public class PlayerPlane extends BasePlane {
         BaseBullet bullet = null;
         try {
             bullet = (BaseBullet) Class.forName(getBulletClass()).getConstructor(int.class, int.class).newInstance(getX() + (getWidth() >> 1), getY());
+            GameDTO.getDto().addPlayerBullet(bullet);
+//            bullet.getShootAudio().play();
+            bullet.startThread(gameController);
         } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException | ClassNotFoundException e) {
             e.printStackTrace();
         }
-        GameDTO.getDto().addPlayerBullet(bullet);
-        bullet.startThread(gameController);
     }
 }

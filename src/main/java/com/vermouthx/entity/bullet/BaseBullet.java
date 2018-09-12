@@ -3,12 +3,15 @@ package com.vermouthx.entity.bullet;
 import com.vermouthx.controller.GameController;
 import com.vermouthx.entity.GameObject;
 
+import java.applet.AudioClip;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public abstract class BaseBullet extends GameObject {
     private Thread thread;
     private boolean isHit;
+
+    private AudioClip shootAudio;
 
     public BaseBullet(int x, int y, BufferedImage image) {
         isHit = false;
@@ -43,5 +46,13 @@ public abstract class BaseBullet extends GameObject {
 
     public void setHit(boolean hit) {
         isHit = hit;
+    }
+
+    public AudioClip getShootAudio() {
+        return shootAudio;
+    }
+
+    public void setShootAudio(AudioClip shootAudio) {
+        this.shootAudio = shootAudio;
     }
 }

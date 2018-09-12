@@ -90,7 +90,7 @@ public class GameConfig {
     /**
      * player bullet sound
      */
-    private static String PLAYER_BULLET_SOUND = "sound/bullet.wav";
+    private static String PLAYER_BASICC_BULLET_SOUND = "sound/bullet.wav";
 
     /**
      * enemy plane speed
@@ -121,6 +121,18 @@ public class GameConfig {
      * boom sound
      */
     private static String BOOM_AUDIO_PATH = "sound/baozha.wav";
+
+    /**
+     * boss image
+     */
+    private static String BOSS_PLANE_PATH = "boss/boss.png";
+    private static String BOSS_PLANE_HIT_PATH = "boss/boss-hit.png";
+    private static String BOSS_PLANE_DEAD_PATH = "boss/boss-dead.png";
+
+    /**
+     * layer padding
+     */
+    private static int PADDING = 20;
 
     static {
         // fill difficulty map
@@ -265,8 +277,8 @@ public class GameConfig {
         return PLAYER_BULLET_SPEED;
     }
 
-    public static String getPlayerBulletSound() {
-        return PLAYER_BULLET_SOUND;
+    public static String getPlayerBasiccBulletSound() {
+        return PLAYER_BASICC_BULLET_SOUND;
     }
 
     public static int getEnemyPlaneSpeed() {
@@ -303,5 +315,21 @@ public class GameConfig {
 
     public static int getPlayerItemThreadSleep() {
         return PLAYER_ITEM_THREAD_SLEEP;
+    }
+
+    public static String getBossPlanePath() {
+        return BOSS_PLANE_PATH;
+    }
+
+    public static String getBossPlaneHitPath() {
+        return BOSS_PLANE_HIT_PATH;
+    }
+
+    public static String getBossPlaneDeadPath() {
+        return BOSS_PLANE_DEAD_PATH;
+    }
+
+    public static int getPadding() {
+        return PADDING;
     }
 }

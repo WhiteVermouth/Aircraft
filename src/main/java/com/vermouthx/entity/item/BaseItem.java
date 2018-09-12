@@ -6,7 +6,10 @@ import com.vermouthx.controller.GameController;
 import com.vermouthx.dto.GameDTO;
 import com.vermouthx.entity.GameObject;
 import com.vermouthx.entity.bullet.PlayerLaserBullet;
+import com.vermouthx.util.ResourceUtil;
 
+import java.applet.Applet;
+import java.applet.AudioClip;
 import java.awt.*;
 import java.util.HashMap;
 import java.util.Map;
@@ -15,6 +18,7 @@ public abstract class BaseItem extends GameObject {
 
     private boolean isGot;
     private Thread thread;
+    private AudioClip gotAudio;
 
     private Map<String, String> bulletMap;
 
@@ -22,6 +26,7 @@ public abstract class BaseItem extends GameObject {
         isGot = false;
         bulletMap = new HashMap<>();
         bulletMap.put("LaserBulletItem", PlayerLaserBullet.class.getName());
+        gotAudio = Applet.newAudioClip(ResourceUtil.getResource("sound/upgrade.wav"));
     }
 
     @Override
@@ -45,6 +50,8 @@ public abstract class BaseItem extends GameObject {
 
     public void setGot(boolean got) {
         isGot = got;
+        if (got)
+            gotAudio.play();
     }
 
     public Thread getThread() {

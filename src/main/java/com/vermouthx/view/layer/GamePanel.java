@@ -30,6 +30,11 @@ public class GamePanel extends BasePanel {
     private int scorePadding;
 
     /**
+     * boss warning image
+     */
+    private BufferedImage bossWarnImg;
+
+    /**
      * map thread
      */
     private Thread mapThread;
@@ -38,6 +43,16 @@ public class GamePanel extends BasePanel {
      * start point y coordinate for map drawing
      */
     private int mapY;
+
+    /**
+     * boss warn state
+     */
+    private boolean isBossWarn;
+
+    /**
+     * boss battle state
+     */
+    private boolean isBossBattle;
 
     /**
      * is reach map top
@@ -49,9 +64,21 @@ public class GamePanel extends BasePanel {
      */
     private AudioClip bgAudioClip;
 
+    /**
+     * boss warning sound
+     */
+    private AudioClip bossWarningAudioClip;
+
+    /**
+     * boss battle music
+     */
+    private AudioClip bossBattleAudioClip;
+
     public GamePanel(GameController gameController) {
         super(gameController);
-        scorePadding = 10;
+        isBossWarn = false;
+        isBossBattle = false;
+        scorePadding = GameConfig.getPadding();
         initImage();
         initMusic();
         initMapThread();
@@ -63,9 +90,11 @@ public class GamePanel extends BasePanel {
     private void initImage() {
         String mapPath = "maps/xingyun1.jpg";
         String scoreUIPath = "score/uiScore.png";
+        String bossWarnImgPath = "boss/smsX.png";
         try {
             mapImg = ImageIO.read(ResourceUtil.getResource(mapPath));
             scoreUIImg = ImageIO.read(ResourceUtil.getResource(scoreUIPath));
+            bossWarnImg = ImageIO.read(ResourceUtil.getResource(bossWarnImgPath));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -76,6 +105,8 @@ public class GamePanel extends BasePanel {
      */
     private void initMusic() {
         bgAudioClip = Applet.newAudioClip(ResourceUtil.getResource("sound/game_music.wav"));
+        bossWarningAudioClip = Applet.newAudioClip(ResourceUtil.getResource("sound/bosswarning.wav"));
+        bossBattleAudioClip = Applet.newAudioClip(ResourceUtil.getResource("sound/bossbeijing.wav"));
         bgAudioClip.loop();
     }
 
@@ -90,10 +121,19 @@ public class GamePanel extends BasePanel {
                 while (!isTopMap) {
                     mapY += GameConfig.getMapMoveInterval();
                     Thread.sleep(GameConfig.getMapMoveSpeed());
-                    repaint();
-                    if (mapY == mapImg.getHeight(null) - GameConfig.getWindowHeight()) {
-                        isTopMap = true;
+                    if (!isBossWarn && mapY > ((mapImg.getHeight() - GameConfig.getWindowWidth()) / 10 * 7)) {
+                        isBossWarn = true;
+                        bgAudioClip.stop();
+                        bossWarningAudioClip.loop();
                     }
+                    if (mapY == mapImg.getHeight() - GameConfig.getWindowHeight()) {
+                        isTopMap = true;
+                        isBossWarn = false;
+                        isBossBattle = true;
+                        bossWarningAudioClip.stop();
+                        bossBattleAudioClip.loop();
+                    }
+                    repaint();
                 }
             } catch (InterruptedException e) {
                 e.printStackTrace();
@@ -103,7 +143,19 @@ public class GamePanel extends BasePanel {
     }
 
     private void drawMap(Graphics g) {
-        g.drawImage(mapImg, 0, 0, GameConfig.getWindowWidth(), GameConfig.getWindowHeight(), 0, mapImg.getHeight(null) - GameConfig.getWindowHeight() - mapY, mapImg.getWidth(null), mapImg.getHeight(null) - mapY, null);
+        g.drawImage(mapImg, 0, 0, GameConfig.getWindowWidth(), GameConfig.getWindowHeight(), 0, mapImg.getHeight() - GameConfig.getWindowHeight() - mapY, mapImg.getWidth(), mapImg.getHeight() - mapY, null);
+    }
+
+    private void drawBossWarning(Graphics g) {
+        if (isBossWarn) {
+            g.drawImage(bossWarnImg, (GameConfig.getWindowWidth() >> 1) - (bossWarnImg.getWidth() >> 1), GameConfig.getWindowHeight() / 3, null);
+        }
+    }
+
+    private void drawBoss(Graphics g) {
+        if (isBossBattle) {
+            GameDTO.getDto().getBossPlane().draw(g);
+        }
     }
 
     @Override
@@ -136,6 +188,9 @@ public class GamePanel extends BasePanel {
         // draw score
         g.drawImage(scoreUIImg, scorePadding, scorePadding, null);
         LayerUtil.drawNumber(g, (scorePadding << 1) + scoreUIImg.getWidth(), scorePadding, GameDTO.getDto().getScore());
+        // draw boss
+        drawBossWarning(g);
+        drawBoss(g);
         requestFocus();
     }
 }

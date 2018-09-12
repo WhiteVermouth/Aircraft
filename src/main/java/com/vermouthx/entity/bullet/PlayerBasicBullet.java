@@ -7,6 +7,7 @@ import com.vermouthx.dto.GameDTO;
 import com.vermouthx.util.ResourceUtil;
 
 import javax.imageio.ImageIO;
+import java.applet.Applet;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
@@ -23,6 +24,7 @@ public class PlayerBasicBullet extends PlayerBaseBullet {
 
     public PlayerBasicBullet(int x, int y) {
         super(x, y, bulletImage);
+        setShootAudio(Applet.newAudioClip(ResourceUtil.getResource(GameConfig.getPlayerBasiccBulletSound())));
     }
 
     @Override
