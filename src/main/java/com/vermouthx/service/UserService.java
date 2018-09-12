@@ -4,7 +4,6 @@ import com.vermouthx.dao.UserDao;
 import com.vermouthx.entity.User;
 import com.vermouthx.exception.UserException;
 
-import java.util.List;
 import java.util.regex.Pattern;
 
 public class UserService {
@@ -16,6 +15,7 @@ public class UserService {
 
     /**
      * user register
+     *
      * @param user
      * @return
      * @throws UserException
@@ -28,8 +28,7 @@ public class UserService {
         String userPasswordRegex = "^[a-zA-Z]\\w{5,17}$";
 
         boolean userNameIsRight = Pattern.matches(userNameRegex, userName);
-        boolean userPasswordIsRight = Pattern.matches(userPasswordRegex,
-                userPassword);
+        boolean userPasswordIsRight = Pattern.matches(userPasswordRegex, userPassword);
         if (!userNameIsRight) {
             throw new UserException("用户名格式错误");
         }
@@ -41,6 +40,7 @@ public class UserService {
 
     /**
      * user register
+     *
      * @param user
      * @return
      * @throws UserException

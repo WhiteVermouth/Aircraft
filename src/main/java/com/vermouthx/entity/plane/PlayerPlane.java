@@ -5,7 +5,6 @@ import com.vermouthx.controller.GameController;
 import com.vermouthx.dto.GameDTO;
 import com.vermouthx.config.Direction;
 import com.vermouthx.entity.bullet.BaseBullet;
-import com.vermouthx.entity.bullet.PlayerBaseBullet;
 import com.vermouthx.util.ResourceUtil;
 
 import javax.imageio.ImageIO;
@@ -20,7 +19,6 @@ public class PlayerPlane extends BasePlane {
     private int speed;
     private boolean hasBoom;
     private Thread thread;
-    private BufferedImage image;
 
     public PlayerPlane() {
         super();
@@ -29,7 +27,7 @@ public class PlayerPlane extends BasePlane {
         hasBoom = false;
         setBulletClass("com.vermouthx.entity.bullet.PlayerBasicBullet");
         try {
-            image = ImageIO.read(ResourceUtil.getResource(GameConfig.getPlayerImgPath()));
+            BufferedImage image = ImageIO.read(ResourceUtil.getResource(GameConfig.getPlayerImgPath()));
             setImage(image);
             setWidth(GameConfig.getPlayerPlaneStillEndX() - GameConfig.getPlayerPlaneStillStartX());
             setHeight(image.getHeight(null));

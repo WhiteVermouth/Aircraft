@@ -43,7 +43,7 @@ public class GameConfig {
     /**
      * image for player plane
      */
-    private static String PLAYER_IMG_PATH = "plane/p01-1.png";
+    private static String PLAYER_IMG_PATH = "plane/basic.png";
     private static int PLAYER_PLANE_LEFT_EDGE_START_X = 0;
     private static int PLAYER_PLANE_LEFT_EDGE_END_X = 53;
     private static int PLAYER_PLANE_LEFT_START_X = 53;
@@ -58,9 +58,9 @@ public class GameConfig {
     /**
      * image for player bullet
      */
-    private static String PLAYER_BASIC_BULLET_PATH = "bullet/p-f01.png";
+    private static String PLAYER_BASIC_BULLET_PATH = "bullet/basic.png";
     private static String PLAYER_LASER_BULLET_PATH = "bullet/laser.png";
-    private static String PLAYER_SPREAD_BULLET_PATH = "bullet/p-f02.png";
+    private static String PLAYER_SPREAD_BULLET_PATH = "bullet/spread.png";
 
     /**
      * image for player bullet item

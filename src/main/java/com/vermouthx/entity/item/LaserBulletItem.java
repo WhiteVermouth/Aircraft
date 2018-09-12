@@ -48,4 +48,17 @@ public class LaserBulletItem extends BaseItem {
         }));
         getThread().start();
     }
+
+    @Override
+    public void collisionDetect() {
+        super.collisionDetect();
+        if (isGot()) {
+            GameConfig.setPlayerImgPath("plane/laser.png");
+            try {
+                GameDTO.getDto().getPlayerPlane().setImage(ImageIO.read(ResourceUtil.getResource(GameConfig.getPlayerImgPath())));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 }
