@@ -3,7 +3,7 @@ package com.vermouthx.entity.bullet;
 import com.vermouthx.config.GameConfig;
 import com.vermouthx.controller.GameController;
 import com.vermouthx.dto.GameDTO;
-import com.vermouthx.entity.Direction;
+import com.vermouthx.config.Direction;
 import com.vermouthx.util.ResourceUtil;
 
 import javax.imageio.ImageIO;
@@ -30,6 +30,7 @@ public class EnemyBullet extends BaseBullet {
     public void move(int direction) {
         if (direction == Direction.DOWN) {
             setY(getY() + GameConfig.getEnemyBulletSpeed());
+            collisionDetect();
         }
     }
 
@@ -48,5 +49,16 @@ public class EnemyBullet extends BaseBullet {
             GameDTO.getDto().removeEnemyBullet(this);
         }));
         getThread().start();
+    }
+
+    @Override
+    public void collisionDetect() {
+        synchronized (GameDTO.getDto().getPlayerPlane()) {
+            if (getRectangle().intersects(GameDTO.getDto().getPlayerPlane().getRectangle())) {
+                setHit(true);
+                GameDTO.getDto().getPlayerPlane().setDead(true);
+                GameDTO.getDto().setStart(false);
+            }
+        }
     }
 }

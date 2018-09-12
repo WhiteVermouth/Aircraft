@@ -4,6 +4,7 @@ import com.vermouthx.config.GameConfig;
 import com.vermouthx.controller.GameController;
 import com.vermouthx.dto.GameDTO;
 import com.vermouthx.entity.bullet.BaseBullet;
+import com.vermouthx.entity.item.BaseItem;
 import com.vermouthx.entity.plane.BasePlane;
 import com.vermouthx.util.ResourceUtil;
 
@@ -65,7 +66,7 @@ public class GamePanel extends BasePanel {
      */
     private void initMusic() {
         bgAudioClip = Applet.newAudioClip(ResourceUtil.getResource("sound/game_music.wav"));
-        bgAudioClip.loop();
+//        bgAudioClip.loop();
     }
 
     /**
@@ -116,6 +117,11 @@ public class GamePanel extends BasePanel {
         synchronized (GameDTO.getDto().getEnemyBullets()) {
             for (BaseBullet baseBullet : GameDTO.getDto().getEnemyBullets())
                 baseBullet.draw(g);
+        }
+        // draw items
+        synchronized (GameDTO.getDto().getItems()) {
+            for (BaseItem item : GameDTO.getDto().getItems())
+                item.draw(g);
         }
         requestFocus();
     }

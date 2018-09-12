@@ -1,6 +1,8 @@
 package com.vermouthx.dto;
 
+import com.vermouthx.config.Difficulty;
 import com.vermouthx.entity.bullet.BaseBullet;
+import com.vermouthx.entity.item.BaseItem;
 import com.vermouthx.entity.plane.BasePlane;
 import com.vermouthx.entity.plane.PlayerPlane;
 
@@ -11,7 +13,7 @@ public class GameDTO {
 
     private boolean isStart;
 
-    private String difficulty;
+    private Difficulty difficulty;
 
     private BasePlane playerPlane;
 
@@ -21,11 +23,25 @@ public class GameDTO {
 
     private final List<BaseBullet> enemyBullets;
 
+    private final List<BaseItem> items;
+
+    /**
+     * single instance dto
+     */
+    private static GameDTO dto;
+
+    public static GameDTO getDto() {
+        if (dto == null)
+            dto = new GameDTO();
+        return dto;
+    }
+
     public GameDTO() {
         playerPlane = new PlayerPlane();
         playerBullets = new LinkedList<>();
         enemyPlanes = new LinkedList<>();
         enemyBullets = new LinkedList<>();
+        items = new LinkedList<>();
     }
 
     public void addPlayerBullet(BaseBullet bullet) {
@@ -52,12 +68,6 @@ public class GameDTO {
         }
     }
 
-    public void removeAllEnemyPlane() {
-        synchronized (enemyPlanes) {
-            enemyPlanes.clear();
-        }
-    }
-
     public void addEnemyBullet(BaseBullet bullet) {
         synchronized (enemyBullets) {
             enemyBullets.add(bullet);
@@ -70,6 +80,18 @@ public class GameDTO {
         }
     }
 
+    public void addItem(BaseItem item) {
+        synchronized (items) {
+            items.add(item);
+        }
+    }
+
+    public void removeItem(BaseItem item) {
+        synchronized (items) {
+            items.remove(item);
+        }
+    }
+
     public boolean isStart() {
         return isStart;
     }
@@ -78,12 +100,8 @@ public class GameDTO {
         isStart = start;
     }
 
-    public String getDifficulty() {
-        return difficulty;
-    }
-
     public void setDifficulty(String difficulty) {
-        this.difficulty = difficulty;
+        this.difficulty = Difficulty.getDifficultyMap().get(difficulty);
     }
 
     public BasePlane getPlayerPlane() {
@@ -102,14 +120,11 @@ public class GameDTO {
         return enemyBullets;
     }
 
-    /**
-     * single instance dto
-     */
-    private static GameDTO dto;
+    public Difficulty getDifficulty() {
+        return difficulty;
+    }
 
-    public static GameDTO getDto() {
-        if (dto == null)
-            dto = new GameDTO();
-        return dto;
+    public List<BaseItem> getItems() {
+        return items;
     }
 }

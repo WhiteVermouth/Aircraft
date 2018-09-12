@@ -1,4 +1,4 @@
-package com.vermouthx.entity;
+package com.vermouthx.config;
 
 public class Direction {
     private Direction() {

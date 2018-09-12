@@ -2,6 +2,8 @@ package com.vermouthx.controller;
 
 import com.vermouthx.dto.GameDTO;
 import com.vermouthx.entity.bullet.BaseBullet;
+import com.vermouthx.entity.item.BaseItem;
+import com.vermouthx.entity.item.LaserBulletItem;
 import com.vermouthx.entity.plane.BasePlane;
 import com.vermouthx.entity.plane.EnemyPlane;
 import com.vermouthx.util.FrameUtil;
@@ -10,7 +12,6 @@ import com.vermouthx.view.layer.GamePanel;
 import com.vermouthx.view.layer.LaunchPanel;
 
 import javax.swing.*;
-import java.util.List;
 
 public class GameController {
 
@@ -43,23 +44,36 @@ public class GameController {
             while (dto.isStart()) {
                 try {
                     playerController.triggerPressedKey();
-                    detectCollision();
+//                    detectCollision();
                     Thread.sleep(100);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
             }
         }).start();
-        GameDTO.getDto().getPlayerPlane().startThread(this);
+        dto.getPlayerPlane().startThread(this);
         // generate enemy plane randomly
         new Thread(() -> {
             while (dto.isStart()) {
                 try {
-                    EnemyPlane plane = new EnemyPlane();
+                    BasePlane plane = new EnemyPlane();
                     dto.addEnemyPlane(plane);
                     plane.startThread(this);
-                    // TODO adjust enemy plane generating speed according to difficulty
-                    Thread.sleep(2000);
+                    Thread.sleep(dto.getDifficulty().getEnemyPlaneGeneratingSpeed());
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+        // generate item randomly
+        new Thread(() -> {
+            while (dto.isStart()) {
+                try {
+                    // TODO: item generating randomly
+                    Thread.sleep(dto.getDifficulty().getItemGeneratingFrequency());
+                    BaseItem item = new LaserBulletItem();
+                    dto.addItem(item);
+                    item.startThread(this);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -72,28 +86,15 @@ public class GameController {
     /**
      * collision detection
      */
-    private void detectCollision() {
-        BasePlane playerPlane = dto.getPlayerPlane();
-        List<BasePlane> enemyPlanes = dto.getEnemyPlanes();
-        List<BaseBullet> playerBullets = dto.getPlayerBullets();
-        List<BaseBullet> enemyBullets = dto.getEnemyBullets();
-        for (BasePlane enemyPlane : enemyPlanes) {
-            if (enemyPlane.getRectangle().intersects(playerPlane.getRectangle())) {
-                playerPlane.setDead(true);
-                dto.setStart(false);
-            }
-            for (BaseBullet playerBullet : playerBullets) {
-                if (playerBullet.getRectangle().intersects(enemyPlane.getRectangle())) {
-                    playerBullet.setHit(true);
-                    enemyPlane.setDead(true);
+    private synchronized void detectCollision() {
+        synchronized (dto.getEnemyPlanes()) {
+            for (BasePlane enemyPlane : dto.getEnemyPlanes()) {
+                synchronized (dto.getPlayerPlane()) {
+                    if (!enemyPlane.isDead() && enemyPlane.getRectangle().intersects(dto.getPlayerPlane().getRectangle())) {
+                        dto.getPlayerPlane().setDead(true);
+                        dto.setStart(false);
+                    }
                 }
-            }
-        }
-        for (BaseBullet enemyBullet : enemyBullets) {
-            if (enemyBullet.getRectangle().intersects(playerPlane.getRectangle())) {
-                enemyBullet.setHit(true);
-                playerPlane.setDead(true);
-                dto.setStart(false);
             }
         }
     }

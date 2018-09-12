@@ -1,7 +1,7 @@
 package com.vermouthx.controller;
 
 import com.vermouthx.entity.plane.BasePlane;
-import com.vermouthx.entity.Direction;
+import com.vermouthx.config.Direction;
 
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;

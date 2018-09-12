@@ -3,7 +3,7 @@ package com.vermouthx.entity.plane;
 import com.vermouthx.config.GameConfig;
 import com.vermouthx.controller.GameController;
 import com.vermouthx.dto.GameDTO;
-import com.vermouthx.entity.Direction;
+import com.vermouthx.config.Direction;
 import com.vermouthx.entity.bullet.BaseBullet;
 import com.vermouthx.entity.bullet.EnemyBullet;
 import com.vermouthx.util.RandomUtil;
@@ -61,8 +61,7 @@ public class EnemyPlane extends BasePlane {
                 try {
                     move(Direction.DOWN);
                     gameController.repaintGamePanel();
-                    // TODO adjust move speed according to difficulty
-                    Thread.sleep(100);
+                    Thread.sleep(GameDTO.getDto().getDifficulty().getEnemyMovingThreadSpeed());
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -85,8 +84,7 @@ public class EnemyPlane extends BasePlane {
             while (!isDead()) {
                 try {
                     shoot(gameController);
-                    // TODO adjust shoot frequency according difficulty
-                    Thread.sleep(2000);
+                    Thread.sleep(GameDTO.getDto().getDifficulty().getEnemyShootingFrequency());
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -95,6 +93,5 @@ public class EnemyPlane extends BasePlane {
         moveThread.start();
         shootThread.start();
     }
-
 
 }

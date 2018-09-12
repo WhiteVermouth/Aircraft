@@ -16,15 +16,17 @@ public abstract class BasePlane extends GameObject {
 
     private static Image boomImage;
 
-    private static AudioClip boomAudio;
+    private AudioClip boomAudio;
+
+    private String bulletClass;
 
     static {
         boomImage = new ImageIcon(ResourceUtil.getResource(GameConfig.getBoomGifPath())).getImage();
-        boomAudio = Applet.newAudioClip(ResourceUtil.getResource(GameConfig.getBoomAudioPath()));
     }
 
     public BasePlane() {
         isDead = false;
+        boomAudio = Applet.newAudioClip(ResourceUtil.getResource(GameConfig.getBoomAudioPath()));
     }
 
     public abstract void shoot(GameController gameController);
@@ -47,4 +49,11 @@ public abstract class BasePlane extends GameObject {
         isDead = dead;
     }
 
+    public String getBulletClass() {
+        return bulletClass;
+    }
+
+    public void setBulletClass(String bulletClass) {
+        this.bulletClass = bulletClass;
+    }
 }

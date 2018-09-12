@@ -27,6 +27,8 @@ public abstract class BaseBullet extends GameObject {
 
     public abstract void startThread(GameController gameController);
 
+    public abstract void collisionDetect();
+
     public Thread getThread() {
         return thread;
     }

@@ -58,7 +58,24 @@ public class GameConfig {
     /**
      * image for player bullet
      */
-    private static String PLAYER_BULLET_PATH = "bullet/p-f01.png";
+    private static String PLAYER_BASIC_BULLET_PATH = "bullet/p-f01.png";
+    private static String PLAYER_LASER_BULLET_PATH = "bullet/laser.png";
+    private static String PLAYER_SPREAD_BULLET_PATH = "bullet/p-f02.png";
+
+    /**
+     * image for player bullet item
+     */
+    private static String PLAYER_LASER_BULLET_ITEM_PATH = "bullet/laser_item.png";
+
+    /**
+     * player item moving speed
+     */
+    private static int PLAYER_ITEM_MOVING_SPEED = 10;
+
+    /**
+     * player item thread sleep interval
+     */
+    private static int PLAYER_ITEM_THREAD_SLEEP = 30;
 
     /**
      * player plane speed
@@ -232,8 +249,16 @@ public class GameConfig {
         return PLAYER_PLANE_SPEED;
     }
 
-    public static String getPlayerBulletPath() {
-        return PLAYER_BULLET_PATH;
+    public static String getPlayerBasicBulletPath() {
+        return PLAYER_BASIC_BULLET_PATH;
+    }
+
+    public static String getPlayerLaserBulletPath() {
+        return PLAYER_LASER_BULLET_PATH;
+    }
+
+    public static String getPlayerSpreadBulletPath() {
+        return PLAYER_SPREAD_BULLET_PATH;
     }
 
     public static int getPlayerBulletSpeed() {
@@ -266,5 +291,17 @@ public class GameConfig {
 
     public static int getBoomGifDuration() {
         return BOOM_GIF_DURATION;
+    }
+
+    public static String getPlayerLaserBulletItemPath() {
+        return PLAYER_LASER_BULLET_ITEM_PATH;
+    }
+
+    public static int getPlayerItemMovingSpeed() {
+        return PLAYER_ITEM_MOVING_SPEED;
+    }
+
+    public static int getPlayerItemThreadSleep() {
+        return PLAYER_ITEM_THREAD_SLEEP;
     }
 }

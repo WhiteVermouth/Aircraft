@@ -3,15 +3,16 @@ package com.vermouthx.entity.plane;
 import com.vermouthx.config.GameConfig;
 import com.vermouthx.controller.GameController;
 import com.vermouthx.dto.GameDTO;
-import com.vermouthx.entity.Direction;
+import com.vermouthx.config.Direction;
 import com.vermouthx.entity.bullet.BaseBullet;
-import com.vermouthx.entity.bullet.PlayerBullet;
+import com.vermouthx.entity.bullet.PlayerBaseBullet;
 import com.vermouthx.util.ResourceUtil;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 
 public class PlayerPlane extends BasePlane {
 
@@ -19,13 +20,14 @@ public class PlayerPlane extends BasePlane {
     private int speed;
     private boolean hasBoom;
     private Thread thread;
+    private BufferedImage image;
 
     public PlayerPlane() {
         super();
         direction = Direction.STILL;
         speed = GameConfig.getPlayerPlaneSpeed();
         hasBoom = false;
-        BufferedImage image;
+        setBulletClass("com.vermouthx.entity.bullet.PlayerBasicBullet");
         try {
             image = ImageIO.read(ResourceUtil.getResource(GameConfig.getPlayerImgPath()));
             setImage(image);
@@ -157,10 +159,13 @@ public class PlayerPlane extends BasePlane {
 
     @Override
     public void shoot(GameController gameController) {
-        BaseBullet bullet = new PlayerBullet(getX() + (getWidth() >> 1), getY());
+        BaseBullet bullet = null;
+        try {
+            bullet = (BaseBullet) Class.forName(getBulletClass()).getConstructor(int.class, int.class).newInstance(getX() + (getWidth() >> 1), getY());
+        } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
         GameDTO.getDto().addPlayerBullet(bullet);
         bullet.startThread(gameController);
-//        PlayerBullet.getAudioClip().play();
     }
-
 }
