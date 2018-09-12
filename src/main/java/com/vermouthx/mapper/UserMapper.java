@@ -10,9 +10,9 @@ import java.util.List;
 public interface UserMapper {
 
     @Results(id = "userMap", value = {
-            @Result(property = "userId", column = "user_id"),
-            @Result(property = "userName", column = "user_name"),
-            @Result(property = "userPassword", column = "user_password"),
+            @Result(property = "id", column = "user_id"),
+            @Result(property = "name", column = "user_name"),
+            @Result(property = "password", column = "user_password"),
             @Result(property = "score", column = "score")
     })
     @SelectProvider(type = UserProvider.class, method = "getUserProvider")

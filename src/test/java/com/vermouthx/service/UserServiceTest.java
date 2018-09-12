@@ -15,4 +15,18 @@ public class UserServiceTest {
             e.printStackTrace();
         }
     }
+
+    @Test
+    public void testGetUser() {
+        UserService service = new UserService();
+        try {
+            User u = service.login(new User("好","a123124124"));
+            System.out.println(u.getId());
+            System.out.println(u.getName());
+            System.out.println(u.getPassword());
+            System.out.println(u.getScore());
+        } catch (UserException e) {
+            e.printStackTrace();
+        }
+    }
 }

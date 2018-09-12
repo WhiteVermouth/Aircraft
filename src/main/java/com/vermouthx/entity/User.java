@@ -1,38 +1,45 @@
 package com.vermouthx.entity;
 
 public class User {
-    private int userId;
-    private String userName;
-    private String userPassword;
+    private int id;
+    private String name;
+    private String password;
     private int score;
 
-    public User(String userName, String userPassword) {
-        this.userName = userName;
-        this.userPassword = userPassword;
+    public User(String name, String password) {
+        this.name = name;
+        this.password = password;
     }
 
-    public int getUserId() {
-        return userId;
+    public User(int id, String name, String password, int score) {
+        this.id = id;
+        this.name = name;
+        this.password = password;
+        this.score = score;
     }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
+    public int getId() {
+        return id;
     }
 
-    public String getUserName() {
-        return userName;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public String getName() {
+        return name;
     }
 
-    public String getUserPassword() {
-        return userPassword;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public void setUserPassword(String userPassword) {
-        this.userPassword = userPassword;
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public int getScore() {
