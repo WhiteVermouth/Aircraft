@@ -21,8 +21,8 @@ public class Difficulty {
     static {
         DIFFICULTY_MAP = new HashMap<>();
         DIFFICULTY_MAP.put("EASY", new Difficulty(2000, 150, 5000, 10000));
-        DIFFICULTY_MAP.put("MEDIUM", new Difficulty(1500, 100, 3000, 20000));
-        DIFFICULTY_MAP.put("HARD", new Difficulty(1000, 50, 2000, 30000));
+        DIFFICULTY_MAP.put("MEDIUM", new Difficulty(1500, 100, 3000, 15000));
+        DIFFICULTY_MAP.put("HARD", new Difficulty(1000, 50, 2000, 20000));
     }
 
     public static Map<String, Difficulty> getDifficultyMap() {

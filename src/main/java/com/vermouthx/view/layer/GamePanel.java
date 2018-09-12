@@ -66,7 +66,7 @@ public class GamePanel extends BasePanel {
      */
     private void initMusic() {
         bgAudioClip = Applet.newAudioClip(ResourceUtil.getResource("sound/game_music.wav"));
-//        bgAudioClip.loop();
+        bgAudioClip.loop();
     }
 
     /**

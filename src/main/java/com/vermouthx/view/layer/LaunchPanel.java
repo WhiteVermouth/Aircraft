@@ -83,7 +83,7 @@ public class LaunchPanel extends BasePanel {
      */
     private void initMusic() {
         bgAudioClip = Applet.newAudioClip(ResourceUtil.getResource("sound/beijing1.wav"));
-//        bgAudioClip.loop();
+        bgAudioClip.loop();
         btnAudioClip = Applet.newAudioClip(ResourceUtil.getResource("sound/menuselect.wav"));
     }
 
@@ -97,7 +97,7 @@ public class LaunchPanel extends BasePanel {
             @Override
             public void mouseClicked(MouseEvent e) {
                 remove(btnContinue);
-//                btnAudioClip.play();
+                btnAudioClip.play();
                 initBtnDifficulty();
             }
         });
@@ -119,8 +119,8 @@ public class LaunchPanel extends BasePanel {
                 @Override
                 public void mouseClicked(MouseEvent e) {
                     GameDTO.getDto().setDifficulty(GameConfig.getDifficultMap().get(difficulty));
-//                    btnAudioClip.play();
-//                    bgAudioClip.stop();
+                    btnAudioClip.play();
+                    bgAudioClip.stop();
                     gameController.startGame();
                 }
             });

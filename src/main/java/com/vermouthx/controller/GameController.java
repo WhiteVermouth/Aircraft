@@ -1,7 +1,6 @@
 package com.vermouthx.controller;
 
 import com.vermouthx.dto.GameDTO;
-import com.vermouthx.entity.bullet.BaseBullet;
 import com.vermouthx.entity.item.BaseItem;
 import com.vermouthx.entity.item.LaserBulletItem;
 import com.vermouthx.entity.plane.BasePlane;
