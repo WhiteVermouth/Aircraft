@@ -4,7 +4,7 @@ import com.vermouthx.entity.User;
 import org.apache.ibatis.jdbc.SQL;
 
 public class UserProvider {
-    public String getUserProvider(User user) {
+    public String getUserProvider() {
         return new SQL() {
             {
                 SELECT("*");
@@ -14,7 +14,7 @@ public class UserProvider {
         }.toString();
     }
 
-    public String addUserProvider(User user) {
+    public String addUserProvider() {
         return new SQL() {
             {
                 INSERT_INTO("users");
@@ -24,7 +24,7 @@ public class UserProvider {
         }.toString();
     }
 
-    public String updateUserScoreProvider(User user) {
+    public String updateUserScoreProvider() {
         return new SQL() {
             {
                 UPDATE("users");

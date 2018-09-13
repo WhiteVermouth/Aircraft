@@ -52,8 +52,10 @@ public class LaunchPanel extends BasePanel {
      */
     private AudioClip btnAudioClip;
 
+    private GameController gameController;
+
     public LaunchPanel(GameController gameController) {
-        super(gameController);
+        this.gameController = gameController;
         btnDifficultyIcons = new ImageIcon[GameConfig.getDifficultyDegree()];
         btnDifficulty = new JLabel[GameConfig.getDifficultyDegree()];
         initImage();

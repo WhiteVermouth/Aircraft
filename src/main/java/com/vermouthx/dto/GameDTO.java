@@ -14,6 +14,8 @@ public class GameDTO {
 
     private boolean isStart;
 
+    private boolean isPause;
+
     private boolean isBoss;
 
     private int score;
@@ -45,6 +47,7 @@ public class GameDTO {
 
     public GameDTO() {
         isStart = false;
+        isPause = false;
         isBoss = false;
         score = 0;
         playerPlane = new PlayerPlane();
@@ -127,6 +130,14 @@ public class GameDTO {
 
     public boolean isStart() {
         return isStart;
+    }
+
+    public void changePause() {
+        isPause = !isPause;
+    }
+
+    public boolean isPause() {
+        return isPause;
     }
 
     public void setStart(boolean start) {

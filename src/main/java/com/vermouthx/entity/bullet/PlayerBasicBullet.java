@@ -29,7 +29,7 @@ public class PlayerBasicBullet extends PlayerBaseBullet {
 
     @Override
     public void move(int direction) {
-        if (direction == Direction.UP) {
+        if (direction == Direction.UP && !GameDTO.getDto().isPause()) {
             setY(getY() - GameConfig.getPlayerBulletSpeed());
             collisionDetect();
         }

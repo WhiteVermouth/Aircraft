@@ -17,7 +17,6 @@ public class GameController {
     private GameDTO dto;
 
     private JFrame gameFrame;
-    private JPanel launchPanel;
     private JPanel gamePanel;
 
     private PlayerController playerController;
@@ -29,14 +28,13 @@ public class GameController {
     }
 
     private void init() {
-        launchPanel = new LaunchPanel(this);
         gameFrame = new GameFrame();
-        FrameUtil.setContentPanel(gameFrame, launchPanel);
+        FrameUtil.setContentPanel(gameFrame, new LaunchPanel(this));
     }
 
     public void startGame() {
         dto.setStart(true);
-        gamePanel = new GamePanel(this);
+        gamePanel = new GamePanel();
         gamePanel.addKeyListener(playerController);
         // listen on player operation and detect collision
         new Thread(() -> {
@@ -54,10 +52,14 @@ public class GameController {
         new Thread(() -> {
             while (dto.isStart() && !dto.isBoss()) {
                 try {
-                    BasePlane plane = new EnemyPlane();
-                    dto.addEnemyPlane(plane);
-                    plane.startThread(this);
-                    Thread.sleep(dto.getDifficulty().getEnemyPlaneGeneratingSpeed());
+                    if (!dto.isPause()) {
+                        BasePlane plane = new EnemyPlane();
+                        dto.addEnemyPlane(plane);
+                        plane.startThread(this);
+                        Thread.sleep(dto.getDifficulty().getEnemyPlaneGeneratingSpeed());
+                    } else {
+                        Thread.sleep(dto.getDifficulty().getEnemyPlaneGeneratingSpeed());
+                    }
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -69,9 +71,13 @@ public class GameController {
                 try {
                     // TODO: item generating randomly
                     Thread.sleep(dto.getDifficulty().getItemGeneratingFrequency());
-                    BaseItem item = new LaserBulletItem();
-                    dto.addItem(item);
-                    item.startThread(this);
+                    if (!dto.isPause()) {
+                        BaseItem item = new LaserBulletItem();
+                        dto.addItem(item);
+                        item.startThread(this);
+                    } else {
+                        Thread.sleep(100);
+                    }
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -79,22 +85,6 @@ public class GameController {
         }).start();
         FrameUtil.setContentPanel(gameFrame, gamePanel);
         gameFrame.repaint();
-    }
-
-    /**
-     * collision detection
-     */
-    private synchronized void detectCollision() {
-        synchronized (dto.getEnemyPlanes()) {
-            for (BasePlane enemyPlane : dto.getEnemyPlanes()) {
-                synchronized (dto.getPlayerPlane()) {
-                    if (!enemyPlane.isDead() && enemyPlane.getRectangle().intersects(dto.getPlayerPlane().getRectangle())) {
-                        dto.getPlayerPlane().setDead(true);
-                        dto.setStart(false);
-                    }
-                }
-            }
-        }
     }
 
     public void repaintGamePanel() {

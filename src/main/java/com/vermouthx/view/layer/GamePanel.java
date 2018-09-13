@@ -74,8 +74,7 @@ public class GamePanel extends BasePanel {
      */
     private AudioClip bossBattleAudioClip;
 
-    public GamePanel(GameController gameController) {
-        super(gameController);
+    public GamePanel() {
         isBossWarn = false;
         isBossBattle = false;
         scorePadding = GameConfig.getPadding();
@@ -119,6 +118,10 @@ public class GamePanel extends BasePanel {
         mapThread = new Thread(() -> {
             try {
                 while (!isTopMap) {
+                    if (GameDTO.getDto().isPause()) {
+                        Thread.sleep(GameConfig.getMapMoveSpeed());
+                        continue;
+                    }
                     mapY += GameConfig.getMapMoveInterval();
                     Thread.sleep(GameConfig.getMapMoveSpeed());
                     if (!isBossWarn && mapY > ((mapImg.getHeight() - GameConfig.getWindowWidth()) / 10 * 7)) {

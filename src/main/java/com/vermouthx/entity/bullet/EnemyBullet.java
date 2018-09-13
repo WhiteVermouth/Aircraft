@@ -28,7 +28,7 @@ public class EnemyBullet extends BaseBullet {
 
     @Override
     public void move(int direction) {
-        if (direction == Direction.DOWN) {
+        if (direction == Direction.DOWN && !GameDTO.getDto().isPause()) {
             setY(getY() + GameConfig.getEnemyBulletSpeed());
             collisionDetect();
         }

@@ -1,5 +1,6 @@
 package com.vermouthx.controller;
 
+import com.vermouthx.dto.GameDTO;
 import com.vermouthx.entity.plane.BasePlane;
 import com.vermouthx.config.Direction;
 
@@ -19,7 +20,7 @@ public class PlayerController extends KeyAdapter {
         this.playerPlane = playerPlane;
         this.gameController = gameController;
         functionKeys = new HashSet<>();
-        char[] funCharKeys = {'e', 'd', 's', 'f', 'j'};
+        char[] funCharKeys = {'e', 'd', 's', 'f', 'j', 'p'};
         for (char c : funCharKeys)
             functionKeys.add(c);
         pressedKeys = new HashSet<>();
@@ -47,6 +48,11 @@ public class PlayerController extends KeyAdapter {
 
     public void triggerPressedKey() {
         if (pressedKeys.size() <= 3) {
+            if (pressedKeys.contains('p')) {
+                GameDTO.getDto().changePause();
+            }
+            if (GameDTO.getDto().isPause())
+                return;
             if (pressedKeys.contains('e')) playerPlane.move(Direction.UP);
             if (pressedKeys.contains('d')) playerPlane.move(Direction.DOWN);
             if (pressedKeys.contains('s')) playerPlane.move(Direction.LEFT);

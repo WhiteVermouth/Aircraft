@@ -59,9 +59,13 @@ public class EnemyPlane extends BasePlane {
         moveThread = new Thread(() -> {
             while (getY() < GameConfig.getWindowHeight() && !isDead()) {
                 try {
-                    move(Direction.DOWN);
-                    gameController.repaintGamePanel();
-                    Thread.sleep(GameDTO.getDto().getDifficulty().getEnemyMovingThreadSpeed());
+                    if (!GameDTO.getDto().isPause()) {
+                        move(Direction.DOWN);
+                        gameController.repaintGamePanel();
+                        Thread.sleep(GameDTO.getDto().getDifficulty().getEnemyMovingThreadSpeed());
+                    } else {
+                        Thread.sleep(GameDTO.getDto().getDifficulty().getEnemyMovingThreadSpeed());
+                    }
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -84,8 +88,12 @@ public class EnemyPlane extends BasePlane {
         shootThread = new Thread(() -> {
             while (!isDead()) {
                 try {
-                    shoot(gameController);
-                    Thread.sleep(GameDTO.getDto().getDifficulty().getEnemyShootingFrequency());
+                    if (!GameDTO.getDto().isPause()) {
+                        shoot(gameController);
+                        Thread.sleep(GameDTO.getDto().getDifficulty().getEnemyShootingFrequency());
+                    } else {
+                        Thread.sleep(GameDTO.getDto().getDifficulty().getEnemyShootingFrequency());
+                    }
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }

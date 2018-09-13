@@ -1,10 +1,8 @@
 package com.vermouthx.util;
 
-import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.*;
 
 import java.io.IOException;
-import java.io.InputStream;
 
 public class MyBatisUtil {
     private static String config = "mybatis/mybatis-config.xml";
