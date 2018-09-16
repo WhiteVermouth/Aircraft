@@ -1,6 +1,5 @@
 package com.vermouthx.provider;
 
-import com.vermouthx.entity.User;
 import org.apache.ibatis.jdbc.SQL;
 
 public class UserProvider {

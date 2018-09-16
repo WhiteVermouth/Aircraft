@@ -21,18 +21,12 @@ public class UserService {
      * @throws UserException
      */
     public boolean register(User user) throws UserException {
-        String userName = user.getName();
-        String userPassword = user.getPassword();
-
         String userNameRegex = "^[\u4e00-\u9fa5]{0,10}$";
         String userPasswordRegex = "^[a-zA-Z]\\w{5,17}$";
-
-        boolean userNameIsRight = Pattern.matches(userNameRegex, userName);
-        boolean userPasswordIsRight = Pattern.matches(userPasswordRegex, userPassword);
-        if (!userNameIsRight) {
+        if (!Pattern.matches(userNameRegex, user.getName())) {
             throw new UserException("用户名格式错误");
         }
-        if (!userPasswordIsRight) {
+        if (!Pattern.matches(userPasswordRegex, user.getPassword())) {
             throw new UserException("密码格式错误");
         }
         return userDao.addUser(user);
@@ -48,14 +42,10 @@ public class UserService {
     public User login(User user) throws UserException {
         String userNameRegex = "^[\u4e00-\u9fa5]{0,10}$";
         String userPasswordRegex = "^[a-zA-Z]\\w{5,17}$";
-
-        boolean userNameIsRight = Pattern.matches(userNameRegex, user.getName());
-        boolean userPasswordIsRight = Pattern.matches(userPasswordRegex,
-                user.getPassword());
-        if (!userNameIsRight) {
+        if (!Pattern.matches(userNameRegex, user.getName())) {
             throw new UserException("用户名格式错误");
         }
-        if (!userPasswordIsRight) {
+        if (!Pattern.matches(userPasswordRegex, user.getPassword())) {
             throw new UserException("密码格式错误");
         }
         return userDao.getUser(user).get(0);
